@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import br.com.gva.wisedelivery.domain.CategoriaRestaurante;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -43,8 +45,19 @@ public class RestauranteDTO {
     private String cnpj;
     
 	private String cep;
+    private MultipartFile logotipoFile;
     private String logotipo;
     private BigDecimal taxaEntrega;
     private Integer tempoEntrega;
     private Set<CategoriaRestaurante> categorias = new HashSet<>();
+
+    public void setLogotipoFileName() {
+
+        if(id == null) {
+            throw new IllegalStateException("É preciso salvar o arquivo");
+        }
+
+        this.logotipo = String.format("%04d-logo.%s", getId(), ".png");
+
+    }
 }

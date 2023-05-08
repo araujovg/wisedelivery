@@ -21,9 +21,14 @@ public class RestauranteServiceImpl implements RestauranteService{
 
     @Override
     public RestauranteSalvoDTO salvar(RestauranteDTO dto) {
-        return deRestauranteParaRestauranteSalvoDto(
+
+        var nomeArquivo = deRestauranteParaRestauranteSalvoDto(
                 getRestauranteRepository().save(
                         deDtoParaRestaurante(dto)));
+        
+        //restaurante.set               
+
+        return nomeArquivo;
     }
 
     private Restaurante deDtoParaRestaurante(RestauranteDTO dto) {
