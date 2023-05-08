@@ -24,16 +24,11 @@ import lombok.ToString;
 public class Restaurante extends Usuario {
 
     private String cnpj;
-
 	private String cep;
-
     private String logotipo;
-
-
     private BigDecimal taxaEntrega;
-
     private Integer tempoEntrega;
-
+    
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "restaurante_has_categoria",

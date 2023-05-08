@@ -1,4 +1,4 @@
-package br.com.gva.wisedelivery.domain.dtos;
+package br.com.gva.wisedelivery.domain.dtos.cliente;
 
 import lombok.Data;
 
