@@ -46,7 +46,7 @@ public class RestauranteDTO {
     private String cnpj;
     
 	private String cep;
-    private MultipartFile logotipoFile;
+    private MultipartFile arquivoLogotipo;
     private String logotipo;
     private BigDecimal taxaEntrega;
     private Integer tempoEntrega;
@@ -58,7 +58,7 @@ public class RestauranteDTO {
             throw new IllegalStateException("É preciso salvar o arquivo");
         }
 
-        this.logotipo = String.format("%04d-logo.%s", getId(), TipoArquivo.of(logotipoFile.getContentType()).getExtension());
+        //this.logotipo = String.format("%04d-logo.%s", getId(), TipoArquivo.of(logotipoFile.getContentType()).getExtension());
 
     }
 }
