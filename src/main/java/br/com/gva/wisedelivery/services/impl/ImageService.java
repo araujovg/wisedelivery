@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,13 +16,15 @@ import lombok.extern.log4j.Log4j2;
 @Service
 public class ImageService {
 
-    private static final String PASTA_DE_UPLOAD = System.getProperty("user.dir") + "/uploads";
+    @Value("${wisedelivery.arquivos.logotipo}")
+    private String diretorioDeUpload;
 
-    public void uploadImage(MultipartFile bytesDaImagem) throws IOException {
+    public String uploadImage(MultipartFile bytesDaImagem) throws IOException {
         StringBuilder buildNomeArquivo = new StringBuilder();
-        Path nomeArquivoECaminho = Paths.get(PASTA_DE_UPLOAD, bytesDaImagem.getOriginalFilename());
+        Path nomeArquivoECaminho = Paths.get(diretorioDeUpload, bytesDaImagem.getOriginalFilename());
         gravaArquivo(nomeArquivoECaminho, bytesDaImagem.getBytes());
         buildNomeArquivo.append(nomeArquivoECaminho);
+        return buildNomeArquivo.toString();
     }
     
     private void gravaArquivo(Path nomeArquivoECaminho, byte[] bytesDaImagem){

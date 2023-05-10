@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import br.com.gva.wisedelivery.domain.dtos.restaurante.RestauranteDTO;
 import br.com.gva.wisedelivery.repository.CategoriaRestauranteRepository;
 import br.com.gva.wisedelivery.services.RestauranteService;
-import br.com.gva.wisedelivery.services.impl.ImageService;
 import jakarta.validation.Valid;
 
 @Controller
@@ -26,9 +25,6 @@ public class RestauranteController {
     @Autowired
     private CategoriaRestauranteRepository categoriaRestauranteRepository;
 
-    @Autowired
-    private ImageService imageService;
-
     @GetMapping("home")
     public String formCadastroRestaurante(Model model){
         var lista = categoriaRestauranteRepository.findAll();
@@ -39,12 +35,8 @@ public class RestauranteController {
 
     @PostMapping("save")
     public String salvarRestaurante(@ModelAttribute("restaurante") @Valid RestauranteDTO restauranteDTO) throws IOException {
-        imageService.uploadImage(restauranteDTO.getArquivoLogotipo());
-        var restaurante = restauranteService.salvar(restauranteDTO);
-        //restauranteDTO.set
-        //restauranteDTO.setLogotipoFileName();
-        //imageService.uploadLogotipo(restauranteDTO.getLogotipoFile(), restauranteDTO.getLogotipo());
-        return "restaurante-cadastro";
+        restauranteService.salvar(restauranteDTO);
+        return "redirect:/restaurantes/home";
     }
 
     @GetMapping("categorias")

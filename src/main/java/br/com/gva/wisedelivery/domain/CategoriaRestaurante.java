@@ -1,6 +1,5 @@
 package br.com.gva.wisedelivery.domain;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
@@ -36,6 +35,5 @@ public class CategoriaRestaurante {
     private String imagem;
 
     @ManyToMany(mappedBy = "categorias")
-    private Set<Restaurante> restaurantes = new HashSet<>(0);
-    
+    private Set<Restaurante> restaurantes;
 }

@@ -1,5 +1,7 @@
 package br.com.gva.wisedelivery.services.impl;
 
+import java.io.IOException;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -7,7 +9,6 @@ import org.springframework.stereotype.Service;
 import br.com.gva.wisedelivery.domain.Restaurante;
 import br.com.gva.wisedelivery.domain.dtos.restaurante.RestauranteDTO;
 import br.com.gva.wisedelivery.domain.dtos.restaurante.RestauranteSalvoDTO;
-import br.com.gva.wisedelivery.exception.ObjetoNaoEncontradoException;
 import br.com.gva.wisedelivery.repository.RestauranteRepository;
 import br.com.gva.wisedelivery.services.RestauranteService;
 import lombok.Getter;
@@ -19,16 +20,16 @@ public class RestauranteServiceImpl implements RestauranteService{
     @Getter
     private RestauranteRepository restauranteRepository;
 
+    @Autowired
+    @Getter
+    private ImageService imageService;
+
     @Override
-    public RestauranteSalvoDTO salvar(RestauranteDTO dto) {
-
-        var nomeArquivo = deRestauranteParaRestauranteSalvoDto(
-                getRestauranteRepository().save(
-                        deDtoParaRestaurante(dto)));
-        
-        //restaurante.set               
-
-        return nomeArquivo;
+    public RestauranteSalvoDTO salvar(RestauranteDTO dto) throws IOException {
+        dto.setLogotipo(getImageService().uploadImage(dto.getArquivoLogotipo()));
+        return deRestauranteParaRestauranteSalvoDto(
+            getRestauranteRepository().save(
+                    deDtoParaRestaurante(dto)));
     }
 
     private Restaurante deDtoParaRestaurante(RestauranteDTO dto) {

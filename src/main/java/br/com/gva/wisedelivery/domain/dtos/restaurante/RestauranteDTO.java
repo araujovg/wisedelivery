@@ -7,7 +7,6 @@ import java.util.Set;
 import org.springframework.web.multipart.MultipartFile;
 
 import br.com.gva.wisedelivery.domain.CategoriaRestaurante;
-import br.com.gva.wisedelivery.utils.TipoArquivo;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -51,14 +50,4 @@ public class RestauranteDTO {
     private BigDecimal taxaEntrega;
     private Integer tempoEntrega;
     private Set<CategoriaRestaurante> categorias = new HashSet<>();
-
-    public void setLogotipoFileName() {
-
-        if(id == null) {
-            throw new IllegalStateException("É preciso salvar o arquivo");
-        }
-
-        //this.logotipo = String.format("%04d-logo.%s", getId(), TipoArquivo.of(logotipoFile.getContentType()).getExtension());
-
-    }
 }
