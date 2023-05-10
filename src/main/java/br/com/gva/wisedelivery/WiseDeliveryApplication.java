@@ -1,6 +1,5 @@
 package br.com.gva.wisedelivery;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +9,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import br.com.gva.wisedelivery.domain.CategoriaRestaurante;
 import br.com.gva.wisedelivery.repository.CategoriaRestauranteRepository;
+import br.com.gva.wisedelivery.utils.ServiceUtils;
 
 @SpringBootApplication
 public class WiseDeliveryApplication implements CommandLineRunner{
 
 	@Autowired
 	private CategoriaRestauranteRepository categoriaRestauranteRepository;
+
+	@Autowired
+	private ServiceUtils serviceUtils;
 
 	public static void main(String[] args) {
 		SpringApplication.run(WiseDeliveryApplication.class, args);
@@ -44,5 +47,7 @@ public class WiseDeliveryApplication implements CommandLineRunner{
 			.build();
 
 		categoriaRestauranteRepository.saveAll(List.of(cat1, cat2, cat3, cat4));
+
+		serviceUtils.consultaCep("28908090");
 	}
 }
