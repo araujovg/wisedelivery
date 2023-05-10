@@ -1,10 +1,6 @@
 package br.com.gva.wisedelivery.controller;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import br.com.gva.wisedelivery.domain.Restaurante;
 import br.com.gva.wisedelivery.domain.dtos.restaurante.RestauranteDTO;
 import br.com.gva.wisedelivery.repository.CategoriaRestauranteRepository;
 import br.com.gva.wisedelivery.services.RestauranteService;
