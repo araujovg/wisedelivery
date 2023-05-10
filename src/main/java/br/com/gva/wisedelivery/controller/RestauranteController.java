@@ -18,13 +18,12 @@ import br.com.gva.wisedelivery.domain.Restaurante;
 import br.com.gva.wisedelivery.domain.dtos.restaurante.RestauranteDTO;
 import br.com.gva.wisedelivery.repository.CategoriaRestauranteRepository;
 import br.com.gva.wisedelivery.services.RestauranteService;
+import br.com.gva.wisedelivery.services.impl.ImageService;
 import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("restaurantes")
 public class RestauranteController {
-
-    public static final String PASTA_DE_UPLOAD = System.getProperty("user.dir") + "/uploads";
 
     @Autowired
     private RestauranteService restauranteService;
@@ -32,8 +31,8 @@ public class RestauranteController {
     @Autowired
     private CategoriaRestauranteRepository categoriaRestauranteRepository;
 
-/*     @Autowired
-    private ImageService imageService; */
+    @Autowired
+    private ImageService imageService;
 
     @GetMapping("home")
     public String formCadastroRestaurante(Model model){
@@ -44,24 +43,8 @@ public class RestauranteController {
     }
 
     @PostMapping("save")
-    public String salvarRestaurante(@ModelAttribute("restaurante") @Valid RestauranteDTO restauranteDTO) {
-        StringBuilder fileNames = new StringBuilder();
-        Path nomeArquivoECaminho = Paths.get(PASTA_DE_UPLOAD, restauranteDTO.getArquivoLogotipo().getOriginalFilename());
-        
-        try {
-            Files.write(nomeArquivoECaminho, restauranteDTO.getArquivoLogotipo().getBytes(), StandardOpenOption.TRUNCATE_EXISTING);
-            fileNames.append(nomeArquivoECaminho);
-        fileNames.append(restauranteDTO.getArquivoLogotipo().getBytes());
-        } catch (IOException e) {
-            try {
-                Files.write(nomeArquivoECaminho, restauranteDTO.getArquivoLogotipo().getBytes());
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-            fileNames.append(nomeArquivoECaminho);
-        }
-        
-        System.out.println("Uploaded images: " + fileNames.toString());
+    public String salvarRestaurante(@ModelAttribute("restaurante") @Valid RestauranteDTO restauranteDTO) throws IOException {
+        imageService.uploadImage(restauranteDTO.getArquivoLogotipo());
         var restaurante = restauranteService.salvar(restauranteDTO);
         //restauranteDTO.set
         //restauranteDTO.setLogotipoFileName();
@@ -74,5 +57,5 @@ public class RestauranteController {
         var lista = categoriaRestauranteRepository.findAll();
         model.addAttribute("categorias", lista);
     }
-    
+
 }
