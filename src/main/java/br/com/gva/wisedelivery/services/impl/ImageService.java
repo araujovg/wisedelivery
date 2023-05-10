@@ -1,11 +1,14 @@
 package br.com.gva.wisedelivery.services.impl;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,8 +19,8 @@ import lombok.extern.log4j.Log4j2;
 @Service
 public class ImageService {
 
-    @Value("${wisedelivery.arquivos.logotipo}")
-    private String diretorioDeUpload;
+    @Getter @Setter
+    private static String diretorioDeUpload;
 
     public String uploadImage(MultipartFile bytesDaImagem) throws IOException {
         StringBuilder buildNomeArquivo = new StringBuilder();
@@ -25,6 +28,18 @@ public class ImageService {
         gravaArquivo(nomeArquivoECaminho, bytesDaImagem.getBytes());
         buildNomeArquivo.append(nomeArquivoECaminho);
         return buildNomeArquivo.toString();
+    }
+
+    public static String criarPastaDeUpload(){
+        Path diretorioCriado = Paths.get("");
+        try {
+            diretorioCriado = Files.createDirectory(Paths.get(System.getProperty("user.home") + "/Dev/uploads"));
+            log.info("Diretório criado com sucesso: " + diretorioCriado);
+        } catch (IOException e) {
+            log.error("Erro ao criar o diretório: " + e.getMessage());
+        }
+        setDiretorioDeUpload(diretorioCriado.toString());
+        return diretorioDeUpload;
     }
     
     private void gravaArquivo(Path nomeArquivoECaminho, byte[] bytesDaImagem){
