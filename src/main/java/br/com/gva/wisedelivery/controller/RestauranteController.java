@@ -42,8 +42,7 @@ public class RestauranteController {
         if(!getRestauranteService().login(restaurante)) {
             return "login";
         }
-        model.addAttribute("restaurante", restaurante.getEmail());
-        return "redirect:admin/dashboard";
+        return home(model, restaurante.getEmail());
     }
 
     @GetMapping("form-cadastro")
@@ -67,7 +66,7 @@ public class RestauranteController {
     }
 
     @GetMapping("admin/dashboard")
-    public String home(Model model){
+    public String home(Model model, String restauranteEmail){
         log.info("RESTAURANTE: " + model.getAttribute("restaurante"));
         model.addAttribute("emailRestaurante", model.getAttribute("restaurante"));
         return "restaurante-dashboard";
