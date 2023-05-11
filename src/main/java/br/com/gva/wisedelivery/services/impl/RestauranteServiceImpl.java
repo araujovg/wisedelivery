@@ -1,6 +1,7 @@
 package br.com.gva.wisedelivery.services.impl;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,9 @@ public class RestauranteServiceImpl implements RestauranteService{
 
     @Override
     public RestauranteSalvoDTO salvar(RestauranteDTO dto) throws IOException {
-        dto.setLogotipo(getImageService().uploadImage(dto.getArquivoLogotipo()));
+        if(Objects.isNull(dto.getLogotipo()) || Objects.nonNull(dto.getArquivoLogotipo())){
+            dto.setLogotipo(getImageService().uploadImage(dto.getArquivoLogotipo()));
+        }
         return deRestauranteParaRestauranteSalvoDto(
             getRestauranteRepository().save(
                     deDtoParaRestaurante(dto)));

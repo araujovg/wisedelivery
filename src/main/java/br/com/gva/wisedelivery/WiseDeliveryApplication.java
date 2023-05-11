@@ -2,6 +2,8 @@ package br.com.gva.wisedelivery;
 
 import java.util.List;
 
+import br.com.gva.wisedelivery.services.impl.ImageService;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -12,6 +14,7 @@ import br.com.gva.wisedelivery.repository.CategoriaRestauranteRepository;
 import br.com.gva.wisedelivery.utils.ServiceUtils;
 
 @SpringBootApplication
+@Log4j2
 public class WiseDeliveryApplication implements CommandLineRunner{
 
 	@Autowired
@@ -49,5 +52,7 @@ public class WiseDeliveryApplication implements CommandLineRunner{
 		categoriaRestauranteRepository.saveAll(List.of(cat1, cat2, cat3, cat4));
 
 		serviceUtils.consultaCep("28908090");
+
+		log.info(ImageService.criarPastaDeUpload());
 	}
 }
