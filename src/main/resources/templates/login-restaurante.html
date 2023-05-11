@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head th:replace="~{fragmentos :: head}">
+</head>
+
+<body id="fundo">
+    <div class="container mt-5">
+
+        <div class="card" id="login">
+            <div class="card-body">
+                <form th:action="@{/restaurantes/logar}" th:object="${restaurante}" method="post">
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
+                            placeholder="Insira seu e-mail" th:field="*{email}" >
+                    </div>
+                    <div class="form-group">
+                        <label for="senha">Senha</label>
+                        <input type="password" class="form-control" id="senha" placeholder="Insira sua Senha" th:field="*{senha}">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block">Entrar</button>
+                </form>
+                <a href="#" class="card-link">Não tenho cadastro</a>
+            </div>
+        </div>
+
+        <footer th:replace="~{fragmentos :: footer-scripts}">
+</body>
+
+</html>

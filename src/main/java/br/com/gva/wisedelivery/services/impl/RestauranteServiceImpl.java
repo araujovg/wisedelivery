@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import br.com.gva.wisedelivery.domain.Restaurante;
 import br.com.gva.wisedelivery.domain.dtos.restaurante.RestauranteDTO;
+import br.com.gva.wisedelivery.domain.dtos.restaurante.RestauranteLoginDTO;
 import br.com.gva.wisedelivery.domain.dtos.restaurante.RestauranteSalvoDTO;
+import br.com.gva.wisedelivery.exception.ObjetoNaoEncontradoException;
 import br.com.gva.wisedelivery.repository.RestauranteRepository;
 import br.com.gva.wisedelivery.services.RestauranteService;
 import lombok.Getter;
@@ -28,7 +30,7 @@ public class RestauranteServiceImpl implements RestauranteService{
     @Override
     public RestauranteSalvoDTO salvar(RestauranteDTO dto) throws IOException {
         if(Objects.isNull(dto.getLogotipo()) || Objects.nonNull(dto.getArquivoLogotipo())){
-            dto.setLogotipo(getImageService().uploadImage(dto.getArquivoLogotipo()));
+            dto.setLogotipo(getImageService().uploadImagem(dto.getArquivoLogotipo()));
         }
         return deRestauranteParaRestauranteSalvoDto(
             getRestauranteRepository().save(
@@ -45,6 +47,19 @@ public class RestauranteServiceImpl implements RestauranteService{
         RestauranteSalvoDTO restauranteSalvoDTO = new RestauranteSalvoDTO();
         BeanUtils.copyProperties(restaurante, restauranteSalvoDTO, "senha", "confirmaSenha");
         return restauranteSalvoDTO;
+    }
+
+    @Override
+    public boolean login(RestauranteLoginDTO restaurante) {
+        Restaurante restauranteSalvo = getRestauranteRepository().findByEmail(restaurante.getEmail()).orElseThrow(
+            () -> new ObjetoNaoEncontradoException("Não foi encontrado um restaurante para o email passado"));
+    return restaurante.getEmail().equals(restauranteSalvo.getEmail()) && restaurante.getSenha().equals(restauranteSalvo.getSenha());
+    }
+
+    @Override
+    public RestauranteSalvoDTO procurarPeloEmail(String emailRestaurante) {
+        return deRestauranteParaRestauranteSalvoDto(getRestauranteRepository().findByEmail(emailRestaurante).orElseThrow(
+            () -> new ObjetoNaoEncontradoException("Não foi encontrado um restaurante para o email passado")));
     }
     
 }

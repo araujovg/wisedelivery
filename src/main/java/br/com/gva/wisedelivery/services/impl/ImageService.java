@@ -19,38 +19,25 @@ import lombok.extern.log4j.Log4j2;
 @Service
 public class ImageService {
 
-    @Getter @Setter
-    private static String diretorioDeUpload;
 
-    public String uploadImage(MultipartFile bytesDaImagem) throws IOException {
+    @Value("${app.upload.endereco.diretorio}")
+    private String diretorioDeUpload;
+
+    public String uploadImagem(MultipartFile bytesDaImagem) {
         StringBuilder buildNomeArquivo = new StringBuilder();
         Path nomeArquivoECaminho = Paths.get(diretorioDeUpload, bytesDaImagem.getOriginalFilename());
-        gravaArquivo(nomeArquivoECaminho, bytesDaImagem.getBytes());
-        buildNomeArquivo.append(nomeArquivoECaminho);
-        return buildNomeArquivo.toString();
-    }
-
-    public static String criarPastaDeUpload(){
-        Path diretorioCriado = Paths.get("");
         try {
-            diretorioCriado = Files.createDirectory(Paths.get(System.getProperty("user.home") + "/Dev/uploads"));
-            log.info("Diretório criado com sucesso: " + diretorioCriado);
-        } catch (IOException e) {
-            log.error("Erro ao criar o diretório: " + e.getMessage());
-        }
-        setDiretorioDeUpload(diretorioCriado.toString());
-        return diretorioDeUpload;
-    }
-    
-    private void gravaArquivo(Path nomeArquivoECaminho, byte[] bytesDaImagem){
-        try {
-            Files.write(nomeArquivoECaminho, bytesDaImagem, StandardOpenOption.TRUNCATE_EXISTING);
+            Files.write(nomeArquivoECaminho, bytesDaImagem.getBytes(), StandardOpenOption.TRUNCATE_EXISTING);
+            log.info("Sucesso ao salvar a imagem!!!");
         } catch (IOException e) {
             try {
-                Files.write(nomeArquivoECaminho, bytesDaImagem);
+                log.error("Erro ao tentar sobrescrever a imagem. Criando a imagem: " + e.getMessage());
+                Files.write(nomeArquivoECaminho, bytesDaImagem.getBytes());
             } catch (IOException e1) {
                 log.error("Erro ao salvar a imagem: " + e1.getMessage());
             }
         }
+        
+        return buildNomeArquivo.toString();
     }
 }

@@ -1,27 +1,32 @@
 package br.com.gva.wisedelivery;
 
 import java.util.List;
+import java.util.Set;
 
-import br.com.gva.wisedelivery.services.impl.ImageService;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import br.com.gva.wisedelivery.domain.CategoriaItem;
 import br.com.gva.wisedelivery.domain.CategoriaRestaurante;
+import br.com.gva.wisedelivery.domain.Restaurante;
+import br.com.gva.wisedelivery.domain.Restaurante;
+import br.com.gva.wisedelivery.repository.CategoriaItemRepository;
 import br.com.gva.wisedelivery.repository.CategoriaRestauranteRepository;
-import br.com.gva.wisedelivery.utils.ServiceUtils;
+import br.com.gva.wisedelivery.repository.RestauranteRepository;
 
 @SpringBootApplication
-@Log4j2
 public class WiseDeliveryApplication implements CommandLineRunner{
 
 	@Autowired
 	private CategoriaRestauranteRepository categoriaRestauranteRepository;
 
 	@Autowired
-	private ServiceUtils serviceUtils;
+	private CategoriaItemRepository categoriaItemRepository;
+
+	@Autowired
+	private RestauranteRepository restauranteRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(WiseDeliveryApplication.class, args);
@@ -51,8 +56,31 @@ public class WiseDeliveryApplication implements CommandLineRunner{
 
 		categoriaRestauranteRepository.saveAll(List.of(cat1, cat2, cat3, cat4));
 
-		serviceUtils.consultaCep("28908090");
+		var catItem1 = CategoriaItem.builder()
+			.nome("Bebida")
+			.imagem("catBebida.png")
+			.build();
 
-		log.info(ImageService.criarPastaDeUpload());
+		var catItem2 = CategoriaItem.builder()
+			.nome("Lanche")
+			.imagem("catLanche.png")
+			.build();
+			
+		var catItem3 = CategoriaItem.builder()
+			.nome("Refeição")
+			.imagem("catRefeicao.png")
+			.build();
+
+		categoriaItemRepository.saveAll(List.of(catItem1, catItem2, catItem3));
+
+		Restaurante rest = new Restaurante();
+		rest.setNome("teste");
+		rest.setEmail("teste@teste.com");
+		rest.setCnpj("11111111111");
+		rest.setSenha("1234");
+		rest.setTelefone("21999999999");
+		rest.setCategorias(Set.of(cat1, cat2));
+
+		restauranteRepository.save(rest);
 	}
 }

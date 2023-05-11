@@ -1,12 +1,11 @@
 package br.com.gva.wisedelivery.domain.dtos.restaurante;
 
-import br.com.gva.wisedelivery.domain.Restaurante;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import lombok.Data;
+import java.math.BigDecimal;
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
-import java.math.BigDecimal;
+import lombok.Data;
 
 @Data
 public class ItemCardapioDTO {
@@ -14,10 +13,10 @@ public class ItemCardapioDTO {
     private Long id;
     private String nome;
     private String descricao;
-    private String categoria;
+    private List<String> categorias;
     private String imagem;
-    private MultipartFile arquivoUploadImagem;
+    private MultipartFile arquivoImagemDoItem;
     private BigDecimal preco;
     private boolean destaque;
-    private Restaurante restaurante;
+    private Long restauranteId;
 }

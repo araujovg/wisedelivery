@@ -21,7 +21,7 @@
 
   <div class="container-fluid">
     <div class="row">
-      
+
       <nav th:replace="~{fragmentos :: sidebarMenu}"></nav>
 
       <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
@@ -43,30 +43,53 @@
         <!-- <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> -->
 
         <h2>Section title</h2>
-        <div class="table-responsive">
-          <table class="table table-striped table-sm">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1,001</td>
-                <td>random</td>
-                <td>data</td>
-                <td>placeholder</td>
-                <td>text</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </main>
+        <form th:action="@{save}" th:object="${itemCardapio}" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="idRestaurante" th:field="*{restauranteId}">
+          <div class="form-group">
+            <label for="nome">Nome do Item</label>
+            <input type="text" class="form-control" id="nome" placeholder="Nome..." th:field="*{nome}" />
+          </div>
+          <div class="form-group">
+            <label for="Descrição">Descricao</label>
+            <textarea class="form-control" id="Descrição" placeholder="Descrição..." th:field="*{descricao}" />
+          </div>
+          <!-- <div class="form-group">
+            <label for="categoria">Selecione uma ou mais categorias para o seu item</label>
+            <select class="custom-select custom-select-lg mb-3" multiple size="4" th:field="*{categorias}">
+              <option th:each="categoria : ${categorias}" th:value="${categoria.id}" th:text="${categoria.nome}">
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" id="customFile" th:field="*{arquivoImagemDoItem}"
+                accept="image/*">
+              <label class="custom-file-label" for="customFile">Carregue a imagem do Item</label>
+            </div>
+          </div> -->
+
+          <span>Preço</span>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text">R$</div>
+            </div>
+            <input type="text" class="form-control" id="preco" placeholder="0,00" th:field="*{preco}">
+          </div>
+
+          <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input" id="destaque" th:field=""*{destaque}">
+            <label class="form-check-label" for="destaque">É destaque?</label>
+          </div>
+
+          <div class="form-group">
+            <input type="submit" class="btn btn-primary btn-lg btn-block" value="Cadastrar" />
+          </div>
+
+          <input type="button" class="btn btn-danger btn-lg btn-block" value="Voltar" />
     </div>
+    </form>
+    </main>
+  </div>
   </div>
 
 
