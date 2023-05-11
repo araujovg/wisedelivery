@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head th:replace="~{fragmentos :: head}">
+</head>
+
+<body id="fundo">
+  <div class="container" id="fundo-branco">
+
+    <header th:replace="~{fragmentos :: navbar}"></header>
+
+    <div class="row">
+      <div class="col-md-2"></div>
+    </div>
+
+    <h2>Cupons de Desconto</h2>
+    <div class="card-deck">
+
+      <div class="card h-auto" style="background-color: transparent; border: none;">
+        <a href="#">
+          <img src="images/landing-banner-1.png" class="card-img-top" alt="...">
+        </a>
+        <div class="card-body">
+        </div>
+      </div>
+
+      <div class="card h-auto" style="background-color: transparent; border: none;">
+        <a href="#">
+          <img src="images/landing-banner-2.png" class="card-img-top" alt="...">
+        </a>
+        <div class="card-body">
+        </div>
+      </div>
+
+      <div class="card h-auto" style="background-color: transparent; border: none;">
+        <a href="#">
+          <img src="images/landing-banner-3.png" class="card-img-top" alt="...">
+        </a>
+        <div class="card-body">
+        </div>
+      </div>
+      </a>
+    </div>
+    <h2>Últimos Pedidos</h2>
+    <div class="card-deck">
+      <div class="card w-auto text-center">
+        <div class="card-header">
+          21/04/2020
+        </div>
+        <div class="card-body">
+          <img src="images/Logo McDonald_MCDON_DRIV15.png" class="card-img" alt="..." id="imagemPedidos">
+          <h5 class="card-title"></h5>
+          <p class="card-text">Pedido: 2x Big Mac's + Refri 2L</p>
+          <p class="card-text"><small class="text-muted">Valor: R$35,00</small></p>
+          <a href="#" class="btn btn-primary">Nota</a>
+        </div>
+      </div>
+      <div class="card w-auto text-center">
+        <div class="card-header">
+          25/04/2020
+        </div>
+        <div class="card-body">
+          <img src="images/201910292243_94aaf166-84cc-4ebf-a35d-d223be34d01f.jpeg" class="card-img" alt="..."
+            id="imagemPedidos">
+          <h5 class="card-title"></h5>
+          <p class="card-text">Pedido: Peixada p/ 4</p>
+          <p class="card-text"><small class="text-muted">Valor: R$250,00</small></p>
+          <a href="#" class="btn btn-primary">Nota</a>
+        </div>
+      </div>
+      <div class="card w-auto text-center">
+        <div class="card-header">
+          29/04/2020
+        </div>
+        <div class="card-body">
+          <img src="images/202001031317_CXpO_i.png" class="card-img" alt="..." id="imagemPedidos">
+          <h5 class="card-title"></h5>
+          <p class="card-text">Pedido: 4x Box Frango Xadrez</p>
+          <p class="card-text"><small class="text-muted">Valor: R$100,00</small></p>
+          <a href="#" class="btn btn-primary">Nota</a>
+        </div>
+      </div>
+    </div>
+    <footer th:replace="~{fragmentos :: footer-scripts}">
+
+</body>
+
+</html>

@@ -25,7 +25,7 @@ public class RestauranteController {
     @Autowired
     private CategoriaRestauranteRepository categoriaRestauranteRepository;
 
-    @GetMapping("home")
+    @GetMapping("form-cadastro")
     public String formCadastroRestaurante(Model model){
         var lista = categoriaRestauranteRepository.findAll();
         model.addAttribute("categorias", lista);
@@ -43,6 +43,11 @@ public class RestauranteController {
     public void pegaCategorias(Model model){
         var lista = categoriaRestauranteRepository.findAll();
         model.addAttribute("categorias", lista);
+    }
+
+    @GetMapping("admin/dashboard")
+    public String home(Model model){
+        return "restaurante-dashboard";
     }
 
 }
