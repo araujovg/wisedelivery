@@ -18,6 +18,7 @@ import br.com.gva.wisedelivery.domain.dtos.restaurante.RestauranteSalvoDTO;
 import br.com.gva.wisedelivery.repository.CategoriaRestauranteRepository;
 import br.com.gva.wisedelivery.services.RestauranteService;
 import jakarta.validation.Valid;
+import jakarta.websocket.server.PathParam;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
  @Log4j2
@@ -42,7 +43,9 @@ public class RestauranteController {
         if(!getRestauranteService().login(restaurante)) {
             return "login";
         }
-        return home(model, restaurante.getEmail());
+        //Ajuste técnico para não retornar a senha salva para o dashboard
+        restaurante.setSenha(null);
+        return home(model);
     }
 
     @GetMapping("form-cadastro")
@@ -66,15 +69,17 @@ public class RestauranteController {
     }
 
     @GetMapping("admin/dashboard")
-    public String home(Model model, String restauranteEmail){
-        log.info("RESTAURANTE: " + model.getAttribute("restaurante"));
-        model.addAttribute("emailRestaurante", model.getAttribute("restaurante"));
+    public String home(Model model){
+        log.info("rest: " + model.getAttribute("restaurante"));
+        //model.addAttribute("emailRestaurante", model.getAttribute("restaurante"));
         return "restaurante-dashboard";
     }
 
     @GetMapping("admin/dashboard/form-itemcardapio")
-    public String formItemCardapio(Model model){
+    public String formItemCardapio(Model model, @PathParam("email") String restauranteEmail){
+        log.info("EMAIL: " + restauranteEmail);
         Object attribute = model.getAttribute("restaurante");
+        model.addAttribute("itemCardapio", new ItemCardapioDTO());
         if(Objects.nonNull(attribute)) {
             String emailRestaurante = (String) attribute;
             RestauranteSalvoDTO restaurante =  getRestauranteService().procurarPeloEmail(emailRestaurante);
@@ -85,7 +90,7 @@ public class RestauranteController {
         } else {
             log.error("NULLLLLOOOOOOOOOOOOOOOOOOOO");
         }
-        return "restaurante-dashboard";
+        return "restaurante-dashboard-itemcardapio-form";
     }
 
 }

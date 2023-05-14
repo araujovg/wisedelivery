@@ -119,6 +119,12 @@
       }
     }
   </style>
+
+<script th:inline="javascript">
+
+
+</script>
+
 </head>
 
 <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse" th:fragment="sidebarMenu">
@@ -131,7 +137,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" th:href="@{/restaurantes/admin/dashboard/form-itemcardapio}">
           <span data-feather="file"></span>
           Itens do cardápio
         </a>
