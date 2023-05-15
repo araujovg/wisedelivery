@@ -1,7 +1,6 @@
 package br.com.gva.wisedelivery.controller;
 
 import java.io.IOException;
-import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,15 +10,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import br.com.gva.wisedelivery.domain.dtos.restaurante.ItemCardapioDTO;
 import br.com.gva.wisedelivery.domain.dtos.restaurante.RestauranteDTO;
 import br.com.gva.wisedelivery.domain.dtos.restaurante.RestauranteLoginDTO;
-import br.com.gva.wisedelivery.domain.dtos.restaurante.RestauranteSalvoDTO;
 import br.com.gva.wisedelivery.repository.CategoriaRestauranteRepository;
 import br.com.gva.wisedelivery.services.RestauranteService;
 import br.com.gva.wisedelivery.utils.ServiceUtils;
 import jakarta.validation.Valid;
-import jakarta.websocket.server.PathParam;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
  @Log4j2
@@ -30,7 +26,7 @@ public class RestauranteController {
     @Autowired @Getter
     private RestauranteService restauranteService;
 
-    @Autowired
+    @Autowired @Getter
     private CategoriaRestauranteRepository categoriaRestauranteRepository;
 
     @Autowired @Getter
@@ -80,24 +76,6 @@ public class RestauranteController {
     @GetMapping("admin/restaurante-dashboard")
     public String home(Model model){
         return "restaurante-dashboard";
-    }
-
-    @GetMapping("admin/dashboard/form-itemcardapio")
-    public String formItemCardapio(Model model, @PathParam("email") String restauranteEmail){
-        log.info("EMAIL: " + restauranteEmail);
-        Object attribute = model.getAttribute("restaurante");
-        model.addAttribute("itemCardapio", new ItemCardapioDTO());
-        if(Objects.nonNull(attribute)) {
-            String emailRestaurante = (String) attribute;
-            RestauranteSalvoDTO restaurante =  getRestauranteService().procurarPeloEmail(emailRestaurante);
-            model.addAttribute("restaurante", restaurante.getId());
-            model.addAttribute("itemCardapio", new ItemCardapioDTO());
-            log.info("RESTAURANTE: " + restaurante.getId());
-            return "restaurante-dashboard-cadastro-itens-cardapio";
-        } else {
-            log.error("NULLLLLOOOOOOOOOOOOOOOOOOOO");
-        }
-        return "restaurante-dashboard-itemcardapio-form";
     }
 
 }

@@ -2,6 +2,7 @@ package br.com.gva.wisedelivery.services;
 
 import java.io.IOException;
 
+import br.com.gva.wisedelivery.domain.Restaurante;
 import br.com.gva.wisedelivery.domain.dtos.restaurante.RestauranteDTO;
 import br.com.gva.wisedelivery.domain.dtos.restaurante.RestauranteLoginDTO;
 import br.com.gva.wisedelivery.domain.dtos.restaurante.RestauranteSalvoDTO;
@@ -12,4 +13,6 @@ public interface RestauranteService {
     boolean login(RestauranteLoginDTO restaurante);
 
     RestauranteSalvoDTO procurarPeloEmail(String emailRestaurante);
+
+    Restaurante procurarPeloId(Long id);
 }

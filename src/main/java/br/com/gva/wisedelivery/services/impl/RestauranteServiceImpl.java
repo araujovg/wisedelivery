@@ -67,5 +67,10 @@ public class RestauranteServiceImpl implements RestauranteService{
         return deRestauranteParaRestauranteSalvoDto(getRestauranteRepository().findByEmail(emailRestaurante).orElseThrow(
             () -> new ObjetoNaoEncontradoException("Não foi encontrado um restaurante para o email passado")));
     }
-    
+
+    @Override
+    public Restaurante procurarPeloId(Long id) {
+        return getRestauranteRepository().findById(id).get();
+    }
+
 }

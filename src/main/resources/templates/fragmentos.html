@@ -9,11 +9,6 @@
   <link rel="stylesheet" href="css/estilos.css">
   <title>Cadastro</title>
 
-  <script>
-    $(function () {
-      $('[data-toggle="popover"]').popover()
-    })
-  </script>
 </head>
 
 <header th:fragment="navbar">
@@ -87,93 +82,6 @@
     crossorigin="anonymous"></script>
 </footer>
 
-<head th:fragment="dashboard-navbar-main">
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-  <meta name="generator" content="Hugo 0.101.0">
-  <title>Dashboard Template · Bootstrap v4.6</title>
-
-  <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/dashboard/">
-
-
-
-  <!-- Bootstrap core CSS -->
-  <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
-  <link th:href="@{/css/dashboard.css}" rel="stylesheet">
-
-
-
-  <style>
-    .bd-placeholder-img {
-      font-size: 1.125rem;
-      text-anchor: middle;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-    }
-
-    @media (min-width: 768px) {
-      .bd-placeholder-img-lg {
-        font-size: 3.5rem;
-      }
-    }
-  </style>
-
-  <script th:inline="javascript">
-
-    var restaurante = /*[[${restaurante}]]*/ '';
-    var restauranteId = /*[[${restauranteId}]]*/ '';
-    localStorage.setItem('restauranteId', restauranteId);
-    localStorage.setItem('Authorization', restaurante.token);
-    localStorage.setItem('logado', restaurante.logado);
-
-  </script>
-
-</head>
-
-<head th:fragment="dashboard-navbar">
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-  <meta name="generator" content="Hugo 0.101.0">
-  <title>Dashboard Template · Bootstrap v4.6</title>
-  <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/dashboard/">
-  <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
-  <link th:href="@{/css/dashboard.css}" rel="stylesheet">
-
-  <style>
-    .bd-placeholder-img {
-      font-size: 1.125rem;
-      text-anchor: middle;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-    }
-
-    @media (min-width: 768px) {
-      .bd-placeholder-img-lg {
-        font-size: 3.5rem;
-      }
-    }
-  </style>
-
-  <script th:inline="javascript">
-
-    var restaurante = /*[[${restaurante}]]*/ '';
-    var restauranteId = /*[[${restauranteId}]]*/ '';
-    localStorage.setItem('restauranteId', restauranteId);
-    localStorage.setItem('Authorization', restaurante.token);
-    localStorage.setItem('logado', restaurante.logado);
-
-  </script>
-
-</head>
-
 <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse" th:fragment="sidebarMenu">
   <div class="sidebar-sticky pt-3">
     <ul class="nav flex-column">
@@ -184,7 +92,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="/admin/itens-cardapio/form-itemcardapio">
           <span data-feather="file"></span>
           Itens do cardápio
         </a>
