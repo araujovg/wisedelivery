@@ -14,6 +14,7 @@ import br.com.gva.wisedelivery.domain.dtos.restaurante.RestauranteSalvoDTO;
 import br.com.gva.wisedelivery.exception.ObjetoNaoEncontradoException;
 import br.com.gva.wisedelivery.repository.RestauranteRepository;
 import br.com.gva.wisedelivery.services.RestauranteService;
+import br.com.gva.wisedelivery.utils.ServiceUtils;
 import lombok.Getter;
 
 @Service
@@ -27,6 +28,10 @@ public class RestauranteServiceImpl implements RestauranteService{
     @Getter
     private ImageService imageService;
 
+    @Autowired
+    @Getter
+    private ServiceUtils utils;
+
     @Override
     public RestauranteSalvoDTO salvar(RestauranteDTO dto) throws IOException {
         if(Objects.isNull(dto.getLogotipo()) || Objects.nonNull(dto.getArquivoLogotipo())){
@@ -39,13 +44,14 @@ public class RestauranteServiceImpl implements RestauranteService{
 
     private Restaurante deDtoParaRestaurante(RestauranteDTO dto) {
         Restaurante restaurante = new Restaurante();
-        BeanUtils.copyProperties(dto, restaurante, "confirmaSenha");
+        BeanUtils.copyProperties(dto, restaurante, "confirmaSenha", "token");
         return restaurante;
     }
 
     private RestauranteSalvoDTO deRestauranteParaRestauranteSalvoDto(Restaurante restaurante) {
         RestauranteSalvoDTO restauranteSalvoDTO = new RestauranteSalvoDTO();
-        BeanUtils.copyProperties(restaurante, restauranteSalvoDTO, "senha", "confirmaSenha");
+        BeanUtils.copyProperties(restaurante, restauranteSalvoDTO, "senha", "confirmaSenha", "token");
+        restauranteSalvoDTO.setId(restaurante.getId());
         return restauranteSalvoDTO;
     }
 

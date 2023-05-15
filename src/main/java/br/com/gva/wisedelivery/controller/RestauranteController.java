@@ -17,6 +17,7 @@ import br.com.gva.wisedelivery.domain.dtos.restaurante.RestauranteLoginDTO;
 import br.com.gva.wisedelivery.domain.dtos.restaurante.RestauranteSalvoDTO;
 import br.com.gva.wisedelivery.repository.CategoriaRestauranteRepository;
 import br.com.gva.wisedelivery.services.RestauranteService;
+import br.com.gva.wisedelivery.utils.ServiceUtils;
 import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 import lombok.Getter;
@@ -32,6 +33,9 @@ public class RestauranteController {
     @Autowired
     private CategoriaRestauranteRepository categoriaRestauranteRepository;
 
+    @Autowired @Getter
+    private ServiceUtils utils;
+
     @GetMapping("login")
     public String telaLogin(Model model){
         model.addAttribute("restaurante", new RestauranteLoginDTO());
@@ -43,7 +47,11 @@ public class RestauranteController {
         if(!getRestauranteService().login(restaurante)) {
             return "login";
         }
+        var restauranteDTO = getRestauranteService().procurarPeloEmail(restaurante.getEmail());
+        log.info("RESTAURANTE ID: " + restauranteDTO.getId());
+        model.addAttribute("restauranteId", restauranteDTO.getId());
         //Ajuste técnico para não retornar a senha salva para o dashboard
+        restaurante.setToken(getUtils().getToken());
         restaurante.setSenha(null);
         return home(model);
     }
@@ -68,7 +76,6 @@ public class RestauranteController {
         model.addAttribute("categorias", lista);
     }
 
-    @GetMapping("admin/dashboard")
     public String home(Model model){
         log.info("rest: " + model.getAttribute("restaurante"));
         //model.addAttribute("emailRestaurante", model.getAttribute("restaurante"));

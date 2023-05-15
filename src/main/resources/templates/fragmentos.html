@@ -122,6 +122,10 @@
 
 <script th:inline="javascript">
 
+  var restaurante = /*[[${restaurante}]]*/ '';
+  var restauranteId = /*[[${restauranteId}]]*/ '';
+  localStorage.setItem('restauranteId', restauranteId);
+  localStorage.setItem('Authorization', restaurante.token);
 
 </script>
 
@@ -137,7 +141,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" th:href="@{/restaurantes/admin/dashboard/form-itemcardapio}">
+        <a class="nav-link" href="#">
           <span data-feather="file"></span>
           Itens do cardápio
         </a>

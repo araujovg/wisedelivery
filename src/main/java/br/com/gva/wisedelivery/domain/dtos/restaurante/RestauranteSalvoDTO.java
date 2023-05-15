@@ -21,5 +21,6 @@ public class RestauranteSalvoDTO {
     private String logotipo;
     private BigDecimal taxaEntrega;
     private Integer tempoEntrega;
+    private String token;
     private Set<CategoriaRestaurante> categorias = new HashSet<>();
 }

@@ -1,5 +1,9 @@
 package br.com.gva.wisedelivery.utils;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -10,16 +14,28 @@ import lombok.Getter;
 @Service
 public class ServiceUtils {
 
+    public ServiceUtils() throws NoSuchAlgorithmException{ /* TODO document why this constructor is empty */ }
+
     @Getter
     @Value("${brasil.api.v2.cep.url}")
     private String apiUrl;
 
+    private Random random = SecureRandom.getInstanceStrong();
+
     public void consultaCep(String cep){
         apiUrl += cep;
-        System.out.println("Request for: " + apiUrl); 
         RestTemplate restTemplate = new RestTemplate();
-        var result = restTemplate.getForEntity(apiUrl, CepDTO.class);
-        System.out.println("RESULTADO: " + result.getBody());
+        restTemplate.getForEntity(apiUrl, CepDTO.class);
+    }
+
+    public String getToken() {
+        StringBuilder token = new StringBuilder();
+        for(int i = 0; i < 255; i++) {
+            char c = (char) (this.random.nextInt(26) + 'a');
+            
+            token.append(c);
+        }
+        return token.toString();
     }
     
 }

@@ -14,6 +14,7 @@
             <div class="card-body">
                 <h5 class="card-title">Insira seus dados</h5>
                 <form th:action="@{save}" th:object="${restaurante}" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="id" th:value="${localStorage.getItem('restauranteId')}" />
                     <div class="form-group">
                         <label for="nome">Nome do Restaurante</label>
                         <input type="text" class="form-control" id="nome" placeholder="Nome..." th:field="*{nome}"/>
