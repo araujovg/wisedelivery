@@ -4,8 +4,14 @@
 <head th:replace="~{fragmentos :: head}">
     <script th:inline="javascript">
 
-        var restauranteEmail = /*[[${restaurante}]]*/ '';
-        localStorage.setItem('restauranteEmail', restauranteEmail.email);
+console.log("logar");
+
+        var restaurante = /*[[${restaurante}]]*/ '';
+        var restauranteId = /*[[${restauranteId}]]*/ '';
+        localStorage.setItem('restauranteId', restauranteId);
+        localStorage.setItem('Authorization', restaurante.token);
+
+        console.log("logou");
       
       </script>
 </head>
@@ -15,7 +21,7 @@
 
         <div class="card" id="login">
             <div class="card-body">
-                <form th:action="@{/restaurantes/logar}" th:object="${restaurante}" method="post">
+                <form th:action="@{/restaurantes/logar}" th:object="${restaurante}" method="post" id="my-form">
                     <div class="form-group">
                         <label for="email">E-mail</label>
                         <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
