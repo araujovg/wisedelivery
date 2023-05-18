@@ -1,6 +1,7 @@
 package br.com.gva.wisedelivery.services;
 
 import java.io.IOException;
+import java.util.List;
 
 import br.com.gva.wisedelivery.domain.Restaurante;
 import br.com.gva.wisedelivery.domain.dtos.restaurante.RestauranteDTO;
@@ -15,4 +16,6 @@ public interface RestauranteService {
     RestauranteSalvoDTO procurarPeloEmail(String emailRestaurante);
 
     Restaurante procurarPeloId(Long id);
+
+    List<RestauranteDTO> procurarTodos();
 }

@@ -1,5 +1,7 @@
 package br.com.gva.wisedelivery.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import br.com.gva.wisedelivery.controller.validator.Validator;
 import br.com.gva.wisedelivery.domain.dtos.cliente.ClienteDTO;
 import br.com.gva.wisedelivery.domain.dtos.cliente.ClienteLoginDTO;
+import br.com.gva.wisedelivery.domain.dtos.restaurante.RestauranteDTO;
 import br.com.gva.wisedelivery.exception.SenhaInvalidaException;
 import br.com.gva.wisedelivery.services.ClienteService;
+import br.com.gva.wisedelivery.services.RestauranteService;
 import jakarta.validation.Valid;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
@@ -27,8 +31,11 @@ public class ClienteController {
     @Getter private ClienteService clienteService;
 
     @Autowired
+    @Getter private RestauranteService restauranteService;
+
+    @Autowired
     @Getter private Validator<ClienteDTO> validator;
-    
+
     @GetMapping("form-cadastro")
     public String formCadastroCliente( Model model ){
         model.addAttribute("cliente", new ClienteDTO());
@@ -57,12 +64,14 @@ public class ClienteController {
         if(!getClienteService().login(cliente)) {
             return "login";
         }
-        return "cliente-home";        
+        return "cliente-home";
     }
 
     @GetMapping("/home")
-    public String  home() {
+    public String  home(Model model) {
+        List<RestauranteDTO> restaurantes = getRestauranteService().procurarTodos();
+        model.addAttribute("restaurantes", restaurantes);
         return "cliente-home";
     }
-    
+
 }

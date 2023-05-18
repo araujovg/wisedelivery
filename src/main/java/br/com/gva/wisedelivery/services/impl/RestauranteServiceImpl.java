@@ -1,6 +1,7 @@
 package br.com.gva.wisedelivery.services.impl;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.beans.BeanUtils;
@@ -55,6 +56,13 @@ public class RestauranteServiceImpl implements RestauranteService{
         return restauranteSalvoDTO;
     }
 
+    private RestauranteDTO deRestauranteParaRestauranteDto(Restaurante restaurante) {
+        RestauranteDTO restauranteDTO = new RestauranteDTO();
+        BeanUtils.copyProperties(restaurante, restauranteDTO, "senha", "confirmaSenha", "token");
+        restauranteDTO.setId(restaurante.getId());
+        return restauranteDTO;
+    }
+
     @Override
     public boolean login(RestauranteLoginDTO restaurante) {
         Restaurante restauranteSalvo = getRestauranteRepository().findByEmail(restaurante.getEmail()).orElseThrow(
@@ -71,6 +79,11 @@ public class RestauranteServiceImpl implements RestauranteService{
     @Override
     public Restaurante procurarPeloId(Long id) {
         return getRestauranteRepository().findById(id).get();
+    }
+
+    @Override
+    public List<RestauranteDTO> procurarTodos() {
+        return getRestauranteRepository().findAll().stream().map(restaurante -> deRestauranteParaRestauranteDto(restaurante)).toList();
     }
 
 }
