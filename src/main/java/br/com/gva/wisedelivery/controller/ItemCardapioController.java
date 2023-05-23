@@ -35,4 +35,10 @@ public class ItemCardapioController {
         return formItemCardapio(model);
     }
 
+    @GetMapping("{restauranteId}")
+    public String listarItensPorRestaurante(Model model, Long restaurantId) {
+        getItemCardapioService().
+        return null;
+    }
+
 }

@@ -42,17 +42,15 @@
       </a>
     </div>
     <h2>Restaurantes</h2>
-    <div class="card-deck">
-      <div class="card w-auto text-center" th:each="restaurante : ${restaurantes}">
-        <div class="card-header">
+
+    <div class="row">
+      <div class="col-md-3" th:each="restaurante : ${restaurantes}">
+        <a th:href="@{}">
           <span th:text="${restaurante.nome}"></span>
-        </div>
-        <div class="card-body">
-          <img th:src="@{/images/} + ${restaurante.logotipo}" class="card-img" alt="..." id="imagemPedidos">
-          <h5 class="card-title"></h5>
-          <p class="card-text"></p>
-          <a href="#" class="btn btn-primary">Nota</a>
-        </div>
+          <p>
+            <img th:src="@{/images/} + ${restaurante.logotipo}" class="card-img" alt="..." id="imagemPedidos">
+          </p>
+        </a>
       </div>
     </div>
 
@@ -63,7 +61,8 @@
           21/04/2020
         </div>
         <div class="card-body">
-          <img src="/images/201910292243_94aaf166-84cc-4ebf-a35d-d223be34d01f.jpeg" class="card-img" alt="..." id="imagemPedidos">
+          <img src="/images/201910292243_94aaf166-84cc-4ebf-a35d-d223be34d01f.jpeg" class="card-img" alt="..."
+            id="imagemPedidos">
           <h5 class="card-title"></h5>
           <p class="card-text">Pedido: 2x Big Mac's + Refri 2L</p>
           <p class="card-text"><small class="text-muted">Valor: R$35,00</small></p>

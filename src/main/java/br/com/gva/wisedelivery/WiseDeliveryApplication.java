@@ -11,7 +11,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import br.com.gva.wisedelivery.domain.CategoriaItem;
 import br.com.gva.wisedelivery.domain.CategoriaRestaurante;
 import br.com.gva.wisedelivery.domain.Restaurante;
-import br.com.gva.wisedelivery.domain.Restaurante;
 import br.com.gva.wisedelivery.repository.CategoriaItemRepository;
 import br.com.gva.wisedelivery.repository.CategoriaRestauranteRepository;
 import br.com.gva.wisedelivery.repository.RestauranteRepository;
@@ -48,7 +47,7 @@ public class WiseDeliveryApplication implements CommandLineRunner{
 			.nome("Asiática")
 			.imagem("null")
 			.build();
-		
+
 		var cat4 = CategoriaRestaurante.builder()
 			.nome("Frutos do mar")
 			.imagem("null")
@@ -65,7 +64,7 @@ public class WiseDeliveryApplication implements CommandLineRunner{
 			.nome("Lanche")
 			.imagem("catLanche.png")
 			.build();
-			
+
 		var catItem3 = CategoriaItem.builder()
 			.nome("Refeição")
 			.imagem("catRefeicao.png")
